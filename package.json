@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/index.ts",
-    "start":"node src/index.ts"
+    "start": "node src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/grakzanchetta/projeto19-drivenpass#readme",
   "dependencies": {
+    "@prisma/client": "^4.3.1",
     "@types/bcrypt": "^5.0.0",
     "@types/cors": "^2.8.12",
     "@types/cryptr": "^4.0.1",
