@@ -9,7 +9,7 @@ async function findUserByEmail(email: string) {
   });
 }
 
-async function insertUser(user: types.CreateUser) {
+async function insertUser(user: types.CreateAndAuthenticateUser) {
   await prisma.users.create({
     data: user,
   });

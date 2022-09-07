@@ -1,3 +1,4 @@
-import { Users } from "@prisma/client";
+import * as models from "@prisma/client";
 
-export type CreateUser = Omit<Users, "id">;
+export type CreateAndAuthenticateUser = Omit<models.Users, "id">;
+export type CreateSession = Omit<models.Sessions, "id">;
