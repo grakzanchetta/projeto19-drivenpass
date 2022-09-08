@@ -22,4 +22,20 @@ async function createCard(userId: number, cardData: types.CreateCard) {
   });
 }
 
-export { createCard };
+async function findAllCards(userId: number) {
+  const cardsList = await cardRepository.findAllCardsByUserId(userId);
+  return cardsList;
+}
+
+async function findCardById(userId: number, cardId: number) {
+  const cardsList = await cardRepository.findCardById(userId, cardId);
+  if (!cardsList) {
+    throw {
+      type: "unauthorized",
+      message: `Card doesn't exist or don't belong to you`,
+    };
+  }
+  return cardsList;
+}
+
+export { createCard, findAllCards, findCardById };

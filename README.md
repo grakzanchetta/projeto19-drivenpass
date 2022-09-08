@@ -32,11 +32,11 @@ O Body da requisição deve ser feito no seguinte formato:
 ### Regras de Uso: 
 Usuário e senha devem ser compatíveis. E-mail não existente ou incorreto retorna status 422, senha incorreta retorna 401. Requisições bem sucedidas retornam o JWT token necessário para autenticação em <span style="color:crimson"> **TODAS** </span> as rotas descritas a seguir.
 
-# Todas as rotas a seguir são autenticadas com um token no formato 'Bearer'
+# Todas as rotas a seguir são autenticadas com um token JWT no formato 'Bearer'.
 
-## Rota <span style="color:yellow"> **POST** </span>/card
+## Rota <span style="color:yellow"> **POST** </span>/cards
 
-Essa é uma rota tem como função é função realizar a adição de informações relativas à cartões.
+Essa rota tem como função é função realizar a adição de informações relativas à cartões.
 
 O Body da requisição deve ser feito no seguinte formato:
 
@@ -58,3 +58,62 @@ cardNumber e cvc aceitam apenas números, embora sejam strings, além disso deve
 Falhar nos requisitos de preenchimento acarreta numa resposta de status 422, repetir a Tag acarreta numa resposta de status 409. 
 
 A requisição correta trará uma mensagem de confirmação do registro com o a Tag inserida, e o cartão estará adicionado ao banco de dados. 
+
+## Rota <span style="color:green"> **GET** </span>/cards
+
+Essa rota não tem informações no corpo. O intuito é pegar todas as informações de todos os cartões do usuario portador do token em questão.
+
+Uma requisição bem sucedida trará uma resposta como abaixo:
+
+```json
+[
+  {
+    "id": 27,
+    "userId": 22,
+    "cardTag": "Banco Banco",
+    "cardNumber": "1234133412341234",
+    "cardName": "Aluno da Driven",
+    "cvc": "133",
+    "expirationDate": "08/22",
+    "password": "euamocodar",
+    "isVirtual": false,
+    "type": "credit"
+  },
+  {
+    "id": 29,
+    "userId": 22,
+    "cardTag": "ocnaB ocnaB",
+    "cardNumber": "6666133412341234",
+    "cardName": "Aluno Não Driven",
+    "cvc": "233",
+    "expirationDate": "08/22",
+    "password": "deletesemwhere",
+    "isVirtual": true,
+    "type": "credit"
+  }
+]
+```
+Nota: Dados sensíveis aparecem descriptografados apenas no ato da requisição. Eles não constam dessa forma no banco.
+
+## Rota <span style="color:green"> **GET** </span>/cards/:id
+
+Essa rota passa como informação o id de um cartão em específico pela rota. O intuito é pegar as informações desse cartão do usuario portador do token em questão.
+
+Buscar ativamente um cartão inexistente, ou que não pertence ao usuário dono do token resultará num resposta de código 401.
+
+Uma requisição bem sucedida trará uma resposta como abaixo:
+
+```json
+  {
+    "id": 27,
+    "userId": 22,
+    "cardTag": "Banco Banco",
+    "cardNumber": "1234133412341234",
+    "cardName": "Aluno da Driven",
+    "cvc": "133",
+    "expirationDate": "08/22",
+    "password": "euamocodar",
+    "isVirtual": false,
+    "type": "credit"
+  }
+```

@@ -20,4 +20,21 @@ async function findTagAndUser(userId: number, cardTag: string) {
   });
 }
 
-export { insertCard, findTagAndUser };
+async function findAllCardsByUserId(userId: number) {
+  return await prisma.cards.findMany({
+    where: {
+      userId,
+    },
+  });
+}
+
+async function findCardById(userId: number, id: number) {
+  return await prisma.cards.findFirst({
+    where: {
+      userId,
+      id,
+    },
+  });
+}
+
+export { insertCard, findTagAndUser, findAllCardsByUserId, findCardById };

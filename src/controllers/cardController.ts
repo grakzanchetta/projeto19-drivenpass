@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import * as cardServices from "../services/cardsServices";
 
+import * as encryptServices from "../utils/encryptServices";
+
 async function createCard(req: Request, res: Response) {
   const card = req.body;
   const { user } = res.locals;
@@ -13,4 +15,27 @@ async function createCard(req: Request, res: Response) {
     );
 }
 
-export { createCard };
+async function findAllCards(req: Request, res: Response) {
+  const { user } = res.locals;
+  const cardList = await cardServices.findAllCards(user.userId);
+
+  for (let i = 0; i < cardList.length; i++) {
+    cardList[i].password = encryptServices.decryptData(cardList[i].password);
+    cardList[i].cvc = encryptServices.decryptData(cardList[i].cvc);
+  }
+
+  res.status(201).send(cardList);
+}
+
+async function findCardById(req: Request, res: Response) {
+  const id = Number(req.params.id);
+  const { user } = res.locals;
+
+  const cardList = await cardServices.findCardById(user.userId, id);
+  cardList.password = encryptServices.decryptData(cardList.password);
+  cardList.cvc = encryptServices.decryptData(cardList.cvc);
+
+  res.status(201).send(cardList);
+}
+
+export { createCard, findAllCards, findCardById };
