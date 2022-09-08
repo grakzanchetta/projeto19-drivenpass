@@ -9,9 +9,9 @@ async function createUser(req: Request, res: Response) {
 
 async function loginUser(req: Request, res: Response) {
   const user = req.body;
-  const madeLogin = await userServices.loginUser(user);
+  const loginUser = await userServices.loginUser(user);
 
-  res.status(201).send(madeLogin);
+  res.status(201).send(loginUser);
 }
 
 export { createUser, loginUser };

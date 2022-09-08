@@ -30,7 +30,7 @@ async function validateSignUp(userData: type.CreateAndAuthenticateUser) {
 
 async function loginUser(userData: type.CreateAndAuthenticateUser) {
   await validateLogin(userData);
-  const token = generateToken(userData);
+  const token = await generateToken(userData);
   return token;
 }
 
@@ -52,8 +52,11 @@ async function validateLogin(userData: type.CreateAndAuthenticateUser) {
   }
 }
 
-function generateToken(userData: type.CreateAndAuthenticateUser) {
-  const token = jwt.sign(userData, String(process.env.JWT_KEY), {
+async function generateToken(userData: type.CreateAndAuthenticateUser) {
+  const userExists = await usersRepository.findUserByEmail(userData.email);
+  const userId = userExists?.id;
+
+  const token = jwt.sign({ userId }, String(process.env.JWT_KEY), {
     expiresIn: process.env.JWT_TOKEN_DURATION,
   });
   return token;

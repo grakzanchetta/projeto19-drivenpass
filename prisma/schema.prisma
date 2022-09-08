@@ -11,7 +11,28 @@ datasource db {
 }
 
 model Users {
-  id       Int    @id @default(autoincrement())
-  email    String @unique
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
   password String
+  cards    Cards[]
+}
+
+model Cards {
+  id             Int       @id @default(autoincrement())
+  user           Users     @relation(fields: [userId], references: [id])
+  userId         Int
+  cardTag        String
+  cardNumber     String
+  cardName       String
+  cvc            String
+  expirationDate String
+  password       String
+  isVirtual      Boolean
+  type           CardTypes
+}
+
+enum CardTypes {
+  credit
+  debit
+  both
 }
