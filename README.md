@@ -117,3 +117,10 @@ Uma requisição bem sucedida trará uma resposta como abaixo:
     "type": "credit"
   }
 ```
+## Rota <span style="color:red"> **DELETE** </span>/cards/:id
+
+Essa rota passa como informação o id de um cartão em específico pela rota. O intuito é deletar as informações de um dado.
+
+Buscar ativamente um cartão inexistente, ou que não pertence ao usuário dono do token resultará num resposta de código 401.
+
+Uma requisição bem sucedida trará como resposta uma confirmação e o id do cartão recém removido.

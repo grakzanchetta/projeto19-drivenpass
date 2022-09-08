@@ -37,4 +37,18 @@ async function findCardById(userId: number, id: number) {
   });
 }
 
-export { insertCard, findTagAndUser, findAllCardsByUserId, findCardById };
+async function deleteCardById(id: number) {
+  return await prisma.cards.delete({
+    where: {
+      id,
+    },
+  });
+}
+
+export {
+  insertCard,
+  findTagAndUser,
+  findAllCardsByUserId,
+  findCardById,
+  deleteCardById,
+};

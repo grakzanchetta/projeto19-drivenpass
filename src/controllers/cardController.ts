@@ -38,4 +38,14 @@ async function findCardById(req: Request, res: Response) {
   res.status(201).send(cardList);
 }
 
-export { createCard, findAllCards, findCardById };
+async function deleteCard(req: Request, res: Response) {
+  const id = Number(req.params.id);
+  const { user } = res.locals;
+
+  await cardServices.findCardById(user.userId, id);
+  await cardServices.deleteCard(id);
+
+  res.status(201).send(`Card with id ${id} has been removed!`);
+}
+
+export { createCard, findAllCards, findCardById, deleteCard };

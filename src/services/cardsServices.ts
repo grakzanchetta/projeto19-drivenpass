@@ -38,4 +38,8 @@ async function findCardById(userId: number, cardId: number) {
   return cardsList;
 }
 
-export { createCard, findAllCards, findCardById };
+async function deleteCard(cardId: number) {
+  await cardRepository.deleteCardById(cardId);
+}
+
+export { createCard, findAllCards, findCardById, deleteCard };

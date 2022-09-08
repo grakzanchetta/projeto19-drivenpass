@@ -15,5 +15,6 @@ cardRouter.post(
 
 cardRouter.get("/cards", validateToken, cardController.findAllCards);
 cardRouter.get("/cards/:id", validateToken, cardController.findCardById);
+cardRouter.delete("/cards/:id", validateToken, cardController.deleteCard);
 
 export default cardRouter;
