@@ -34,9 +34,11 @@ Usuário e senha devem ser compatíveis. E-mail não existente ou incorreto reto
 
 # Todas as rotas a seguir são autenticadas com um token JWT no formato 'Bearer'.
 
+# Rotas de Cartões
+
 ## Rota <span style="color:yellow"> **POST** </span>/cards
 
-Essa rota tem como função é função realizar a adição de informações relativas à cartões.
+Essa rota tem como função realizar a adição de informações relativas à cartões.
 
 O Body da requisição deve ser feito no seguinte formato:
 
@@ -124,3 +126,71 @@ Essa rota passa como informação o id de um cartão em específico pela rota. O
 Buscar ativamente um cartão inexistente, ou que não pertence ao usuário dono do token resultará num resposta de código 401.
 
 Uma requisição bem sucedida trará como resposta uma confirmação e o id do cartão recém removido.
+
+# Rotas de Notas
+
+## Rota <span style="color:yellow"> **POST** </span>/notas
+
+Essa rota tem como função realizar a adição de anotações.
+
+O Body da requisição deve ser feito no seguinte formato:
+
+```json
+{
+  "noteTag":"nome_do_registro", //string
+  "text":"texto_do_autor" //string
+}
+```
+### Regras adicionais de Uso:
+
+O título deve ter no máximo 50 caracteres, e o texto, 1000. Não respeitar essas regras acarretam em código 400 na resposta, repetir a Tag acarreta numa resposta de status 409. 
+
+A requisição correta trará uma mensagem de confirmação do registro com a Tag inserida, e a nota estará adicionada ao banco de dados. 
+
+## Rota <span style="color:green"> **GET** </span>/notes
+
+Essa rota não tem informações no corpo. O intuito é pegar todas as informações de todos as notas do usuario portador do token em questão.
+
+Uma requisição bem sucedida trará uma resposta como abaixo:
+
+```json
+[
+  {
+    "id": 14,
+    "userId": 21,
+    "noteTag": "titulo 1",
+    "text": "texto 1"
+  },
+  {
+    "id": 15,
+    "userId": 21,
+    "noteTag": "titulo 2",
+    "text": "texto 2"
+  }
+]
+```
+Nota: Dados sensíveis aparecem descriptografados apenas no ato da requisição. Eles não constam dessa forma no banco.
+
+## Rota <span style="color:green"> **GET** </span>/notes/:id
+
+Essa rota passa como informação o id de uma nota em específico pela rota. O intuito é pegar as informações dessa nota do usuario portador do token em questão.
+
+Buscar ativamente uma nota inexistente, ou que não pertence ao usuário dono do token resultará num resposta de código 401.
+
+Uma requisição bem sucedida trará uma resposta como abaixo:
+
+```json
+{
+  "id": 16,
+  "userId": 21,
+  "noteTag": "titulo 2",
+  "text": "texto da nota"
+}
+```
+## Rota <span style="color:red"> **DELETE** </span>/cards/:id
+
+Essa rota passa como informação o id de uma nota em específico pela rota. O intuito é deletar as informações de um dado.
+
+Buscar ativamente uma nota inexistente, ou que não pertence ao usuário dono do token resultará num resposta de código 401.
+
+Uma requisição bem sucedida trará como resposta uma confirmação e o id da nota recém removido.
