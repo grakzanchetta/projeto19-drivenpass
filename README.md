@@ -261,3 +261,76 @@ Essa rota passa como informação o id de umwifi em específico pela rota. O int
 Buscar ativamente um wifi inexistente, ou que não pertence ao usuário dono do token resultará num resposta de código 401.
 
 Uma requisição bem sucedida trará como resposta uma confirmação e o id do wifi recém removido.
+
+# Rotas de Credenciais
+
+## Rota <span style="color:yellow"> **POST** </span>/credentials
+
+Essa rota tem como função realizar a adição de senhas de páginas.
+
+O Body da requisição deve ser feito no seguinte formato:
+
+```json
+{
+  "credentialTag":"nome_do_registro", //string
+  "title":"nome_do_site", //string
+  "url":"endereço_do_site", //string
+  "password":"senha_da_rede" //string
+}
+```
+### Regras adicionais de Uso:
+Os títulos dos registros precisam ser únicos para cada usuário.
+
+## Rota <span style="color:green"> **GET** </span>/credentials/:id
+
+Essa rota não tem informações no corpo. O intuito é pegar todas as informações de todos os credenciais do usuario portador do token em questão.
+
+Uma requisição bem sucedida trará uma resposta como abaixo:
+
+```json
+[
+  {
+    "id": 6,
+    "userId": 22,
+    "credentialTag": "registro1",
+    "title": "driven",
+    "url": "driven.com",
+    "password": "senha2"
+  },
+  {
+    "id": 7,
+    "userId": 22,
+    "credentialTag":"registro2",
+    "title": "github",
+    "url": "github.com",
+    "password": "senha3"
+  }
+]
+```
+Nota: Dados sensíveis aparecem descriptografados apenas no ato da requisição. Eles não constam dessa forma no banco.
+
+## Rota <span style="color:green"> **GET** </span>/credentials/:id
+
+Essa rota passa como informação o id de uma credencial em específico pela rota. O intuito é pegar as informações dessa credencial do usuario portador do token em questão.
+
+Buscar ativamente uma credential inexistente, ou que não pertence ao usuário dono do token resultará num resposta de código 401.
+
+Uma requisição bem sucedida trará uma resposta como abaixo:
+
+```json
+{
+    "id": 7,
+    "userId": 22,
+    "credentialTag":"registro2",
+    "title": "github",
+    "url": "github.com",
+    "password": "senha3"
+  }
+```
+## Rota <span style="color:red"> **DELETE** </span>/credentials/:id
+
+Essa rota passa como informação o id de uma credencial em específico pela rota. O intuito é deletar as informações de um dado.
+
+Buscar ativamente uma credencial inexistente, ou que não pertence ao usuário dono do token resultará num resposta de código 401.
+
+Uma requisição bem sucedida trará como resposta uma confirmação e o id da credencial recém removida.

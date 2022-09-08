@@ -3,6 +3,7 @@ import * as encryptServices from "../utils/encryptServices";
 import * as type from "../interfaces/interfaces";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import { sign } from "crypto";
 
 async function createUser(userData: type.CreateAndAuthenticateUser) {
   await validateSignUp(userData);
@@ -37,6 +38,7 @@ async function loginUser(userData: type.CreateAndAuthenticateUser) {
 async function validateLogin(userData: type.CreateAndAuthenticateUser) {
   const { email, password } = userData;
   const userExists = await usersRepository.findUserByEmail(email);
+
   if (!userExists) {
     throw {
       type: "not_found",
