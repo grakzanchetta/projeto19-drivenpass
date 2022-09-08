@@ -187,10 +187,77 @@ Uma requisição bem sucedida trará uma resposta como abaixo:
   "text": "texto da nota"
 }
 ```
-## Rota <span style="color:red"> **DELETE** </span>/cards/:id
+## Rota <span style="color:red"> **DELETE** </span>/notes/:id
 
 Essa rota passa como informação o id de uma nota em específico pela rota. O intuito é deletar as informações de um dado.
 
 Buscar ativamente uma nota inexistente, ou que não pertence ao usuário dono do token resultará num resposta de código 401.
 
 Uma requisição bem sucedida trará como resposta uma confirmação e o id da nota recém removido.
+
+# Rotas de Wifi
+
+## Rota <span style="color:yellow"> **POST** </span>/wifi
+
+Essa rota tem como função realizar a adição de redes de wifi.
+
+O Body da requisição deve ser feito no seguinte formato:
+
+```json
+{
+  "wifiTag":"nome_do_registro", //string
+  "name":"nome_da_rede", //string
+  "password":"senha_da_rede" //string
+}
+```
+
+## Rota <span style="color:green"> **GET** </span>/wifi
+
+Essa rota não tem informações no corpo. O intuito é pegar todas as informações de todos as redes wifi do usuario portador do token em questão.
+
+Uma requisição bem sucedida trará uma resposta como abaixo:
+
+```json
+[
+  {
+    "id": 6,
+    "userId": 22,
+    "wifiTag": "wifi1",
+    "name": "trabalho",
+    "password": "senha2"
+  },
+  {
+    "id": 8,
+    "userId": 22,
+    "wifiTag": "wifi2",
+    "name": "casa",
+    "password": "senha"
+  }
+]
+```
+Nota: Dados sensíveis aparecem descriptografados apenas no ato da requisição. Eles não constam dessa forma no banco.
+
+## Rota <span style="color:green"> **GET** </span>/notewifis/:id
+
+Essa rota passa como informação o id de um wifi em específico pela rota. O intuito é pegar as informações desse wifi do usuario portador do token em questão.
+
+Buscar ativamente um wifi inexistente, ou que não pertence ao usuário dono do token resultará num resposta de código 401.
+
+Uma requisição bem sucedida trará uma resposta como abaixo:
+
+```json
+{
+  "id": 6,
+  "userId": 22,
+  "wifiTag": "padaria",
+  "name": "wifi_padaria",
+  "password": "senha4"
+}
+```
+## Rota <span style="color:red"> **DELETE** </span>/notes/:id
+
+Essa rota passa como informação o id de umwifi em específico pela rota. O intuito é deletar as informações de um dado.
+
+Buscar ativamente um wifi inexistente, ou que não pertence ao usuário dono do token resultará num resposta de código 401.
+
+Uma requisição bem sucedida trará como resposta uma confirmação e o id do wifi recém removido.
