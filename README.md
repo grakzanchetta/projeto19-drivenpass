@@ -237,7 +237,7 @@ Uma requisição bem sucedida trará uma resposta como abaixo:
 ```
 Nota: Dados sensíveis aparecem descriptografados apenas no ato da requisição. Eles não constam dessa forma no banco.
 
-## Rota <span style="color:green"> **GET** </span>/notewifis/:id
+## Rota <span style="color:green"> **GET** </span>/wifi/:id
 
 Essa rota passa como informação o id de um wifi em específico pela rota. O intuito é pegar as informações desse wifi do usuario portador do token em questão.
 
@@ -254,7 +254,7 @@ Uma requisição bem sucedida trará uma resposta como abaixo:
   "password": "senha4"
 }
 ```
-## Rota <span style="color:red"> **DELETE** </span>/notes/:id
+## Rota <span style="color:red"> **DELETE** </span>/wifi/:id
 
 Essa rota passa como informação o id de umwifi em específico pela rota. O intuito é deletar as informações de um dado.
 
