@@ -6,15 +6,15 @@ import dotenv from "dotenv";
 import errorHandlerMiddleware from "./middlewares/errorHandlerMiddleware";
 
 dotenv.config();
-const app = express();
+const server = express();
 
-app.use(cors());
-app.use(json());
-app.use(router);
-app.use(errorHandlerMiddleware);
+server.use(cors());
+server.use(json());
+server.use(router);
+server.use(errorHandlerMiddleware);
 
 const PORT: number = Number(process.env.PORT) || 5009;
 
-app.listen(PORT, () =>
+server.listen(PORT, () =>
   console.log(`It's friday theeeeen Saturday Sunday WHAT?! on port ${PORT}`)
 );
