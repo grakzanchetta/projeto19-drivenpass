@@ -3,7 +3,9 @@ import * as encryptServices from "../utils/encryptServices";
 import * as type from "../interfaces/interfaces";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import { sign } from "crypto";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 async function createUser(userData: type.CreateAndAuthenticateUser) {
   await validateSignUp(userData);
